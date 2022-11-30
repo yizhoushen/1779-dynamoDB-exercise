@@ -216,8 +216,13 @@ def tutorial_query_createdate():
         response = table.query(
             IndexName='CreateDateIndex',
             ##### Your code starts here #####
-
-
+            KeyConditionExpression='CreateDate = :CreateDate AND begins_with ( IssueId , :IssueId_begin )',
+            ExpressionAttributeValues={
+                ':CreateDate': date,
+                ':IssueId_begin': issue_id
+            }
+            # alternative
+            # KeyConditionExpression=Key('CreateDate').eq(date) & Key('IssueId').begins_with(issue_id)
 
             ##### Your code ends here #####
         )
@@ -241,9 +246,10 @@ def tutorial_query_title():
         response = table.query(
             IndexName='TitleIndex',
             ##### Your code starts here #####
-
-
-
+            KeyConditionExpression='Title = :Title',
+            ExpressionAttributeValues={
+                ':Title': title
+            }
             ##### Your code ends here #####
         )
 
